@@ -28,9 +28,8 @@ router.post('/register', (req, res)=>{
 })
 
 //login 
-function authorize (rea, res, next) {
-    const token = req.headers.authorization.split('')[1]
-    console.log(token)
+function authorize (req, res, next) {
+    const token = req.headers.authorization.split(' ')[1]
     jwt.verify(token, SECRET_KEY, (err, decoded)=>{
         if (err){
             return res.status(403).json({success: false, message: "No Token."});
@@ -63,6 +62,34 @@ router.post('/login', (req, res)=>{
                     })
                 }
             }
+        })
+})
+
+//user new entry 
+router.post('/entry', authorize, (req, res)=>{
+    const inputEntry = req.body;
+
+    knex('users')
+        .where({username: inputEntry.username})
+        .then((data)=>{
+            console.log(data[0].user_id)
+            const userId = data[0].user_id
+            const newEntry = {
+                "user_id": userId,
+                "date": inputEntry.date,
+                "time_of_day": inputEntry.time_of_day,
+                "food": inputEntry.food,
+                "symptom": inputEntry.symptom,
+                "notes": inputEntry.notes
+            }
+            knex('user_logs')
+                .insert(newEntry)
+                .then(()=>{
+                    res.status(200).json({message: 'added new entry'})
+                })
+                .catch((err)=>{
+                    res.status(400).json({message: 'cannot add new entry'})
+                })
         })
 })
 

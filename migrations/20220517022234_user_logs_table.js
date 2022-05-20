@@ -11,7 +11,6 @@ exports.up = function(knex) {
             table.string('time_of_day').notNullable();
             table.string('food').notNullable();
             table.string('symptom').notNullable();
-            table.string('body_part').nullable();
             table.string('notes').nullable();
             table
                 .foreign('user_id')
