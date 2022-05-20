@@ -34,7 +34,7 @@ function authorize (req, res, next) {
         if (err){
             return res.status(403).json({success: false, message: "No Token."});
         } else {
-            res.send(decoded)
+            req.decoded = decoded
             next()
         }
     })
@@ -51,13 +51,13 @@ router.post('/login', (req, res)=>{
             if(data.length < 1) {
                 res.status(403).json({error: "user doesn't exists"})
             } else {
-                const {username, password} = userLogin
+                const {username, password, user_id} = userLogin
                 if (password === inputPassword) {
                     console.log('found user', username)
-                    const token = jwt.sign({username: username}, SECRET_KEY, {expiresIn: '24h'})
-                    res.status(200).json({token: token})
+                    const token = jwt.sign({username: username, user_id: user_id}, SECRET_KEY, {expiresIn: '24h'})
+                    return res.status(200).json({token: token})
                 } else {
-                    res.status(403).json({
+                    return res.status(403).json({
                         error: "Password do not match record"
                     })
                 }
@@ -68,30 +68,44 @@ router.post('/login', (req, res)=>{
 //user new entry 
 router.post('/entry', authorize, (req, res)=>{
     const inputEntry = req.body;
+    console.log(req.decoded)
 
     knex('users')
-        .where({username: inputEntry.username})
+        .where({username: req.decoded.username})
         .then((data)=>{
-            console.log(data[0].user_id)
-            const userId = data[0].user_id
+            const login_id = data[0].id;
             const newEntry = {
-                "user_id": userId,
+                "login_id": login_id,
+                "user_id": req.decoded.user_id,
                 "date": inputEntry.date,
                 "time_of_day": inputEntry.time_of_day,
                 "food": inputEntry.food,
                 "symptom": inputEntry.symptom,
                 "notes": inputEntry.notes
-            }
-            knex('user_logs')
-                .insert(newEntry)
-                .then(()=>{
-                    res.status(200).json({message: 'added new entry'})
+                }
+                console.log(newEntry)
+                return knex('user_logs')
+                            .insert(newEntry)
                 })
-                .catch((err)=>{
-                    res.status(400).json({message: 'cannot add new entry'})
-                })
+        .then(()=>{
+            return res.status(201).json({message: 'added new entry'});
         })
+        // .catch((err)=>{
+        //     console.log('it got here')
+        //     return res.status(400).json({message: 'cannot add new entry'});
+        // })
+
+
 })
 
+
+
+// //delete entry 
+// router.delete('/delete/:username', authorize, (req, res)=>{
+//     knex('user_logs')
+//         .where({username: req.params.username})
+
+
+// })
 
 module.exports = router;

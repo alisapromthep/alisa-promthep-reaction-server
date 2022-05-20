@@ -6,6 +6,7 @@ exports.up = function(knex) {
     return knex.schema.createTable(
         "user_logs", (table) => {
             table.increments('id').primary();
+            table.integer('login_id').notNullable().unsigned();
             table.string('user_id').notNullable();
             table.string('date').notNullable();
             table.string('time_of_day').notNullable();
@@ -13,8 +14,8 @@ exports.up = function(knex) {
             table.string('symptom').notNullable();
             table.string('notes').nullable();
             table
-                .foreign('user_id')
-                .references('user_id')
+                .foreign('login_id')
+                .references('id')
                 .inTable('users')
                 .onUpdate('CASCADE')
                 .onDelete('CASCADE'); 
