@@ -53,9 +53,12 @@ router.post('/login', (req, res)=>{
             } else {
                 const {username, password, user_id} = userLogin
                 if (password === inputPassword) {
-                    console.log('found user', username)
-                    const token = jwt.sign({username: username, user_id: user_id}, SECRET_KEY, {expiresIn: '24h'})
-                    return res.status(200).json({token: token})
+                    console.log('found user', username, user_id)
+                    const token = jwt.sign({
+                        user_id: user_id, 
+                        username: username},
+                        SECRET_KEY, {expiresIn: '24h'})
+                        return res.status(200).json({token: token})
                 } else {
                     return res.status(403).json({
                         error: "Password do not match record"
@@ -69,6 +72,7 @@ router.post('/login', (req, res)=>{
 router.post('/entry', authorize, (req, res)=>{
     const inputEntry = req.body;
     console.log(req.decoded)
+    
 
     knex('users')
         .where({username: req.decoded.username})
@@ -83,19 +87,16 @@ router.post('/entry', authorize, (req, res)=>{
                 "symptom": inputEntry.symptom,
                 "notes": inputEntry.notes
                 }
-                console.log(newEntry)
+
                 return knex('user_logs')
                             .insert(newEntry)
                 })
         .then(()=>{
             return res.status(201).json({message: 'added new entry'});
         })
-        // .catch((err)=>{
-        //     console.log('it got here')
-        //     return res.status(400).json({message: 'cannot add new entry'});
-        // })
-
-
+        .catch((err)=>{
+            return res.status(400).json({message: 'cannot add new entry'});
+        })
 })
 
 
@@ -107,5 +108,23 @@ router.post('/entry', authorize, (req, res)=>{
 
 
 // })
+
+//get user information 
+
+router.get('/userLogs', authorize, (req, res)=>{
+    const user_id = req.decoded.user_id
+
+    knex('user_logs')
+        .where({user_id: user_id})
+        .then((data)=>{
+            console.log(data);
+            return res.status(200).json(data);
+        })
+        .catch((err)=>{
+            return res.status(403).json({message: 'Unable to retrieve data, user may not exists'});
+        })
+
+
+})
 
 module.exports = router;
