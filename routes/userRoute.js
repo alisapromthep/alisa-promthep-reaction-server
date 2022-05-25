@@ -29,6 +29,7 @@ router.post('/register', (req, res)=>{
 
 //login 
 function authorize (req, res, next) {
+
     const token = req.headers.authorization.split(' ')[1]
     jwt.verify(token, SECRET_KEY, (err, decoded)=>{
         if (err){
@@ -58,7 +59,7 @@ router.post('/login', (req, res)=>{
                         user_id: user_id, 
                         username: username},
                         SECRET_KEY, {expiresIn: '24h'})
-                        return res.status(200).json({token: token})
+                        return res.status(200).json({token: token, username:username})
                 } else {
                     return res.status(403).json({
                         error: "Password do not match record"
@@ -101,26 +102,38 @@ router.post('/entry', authorize, (req, res)=>{
 
 
 
-// //delete entry 
-// router.delete('/delete/:username', authorize, (req, res)=>{
-//     knex('user_logs')
-//         .where({username: req.params.username})
+//delete entry 
+router.delete('/delete/:logId', authorize, (req, res)=>{
+    const user_id = req.decoded.user_id;
+    const log_id = req.params.logId
+    console.log(log_id)
+    console.log(user_id)
 
-
-// })
+    knex('user_logs')
+        .where({user_id: user_id, id: log_id})
+        .del()
+        .then((data)=>{
+            res.status(200).json({delete: 'success'})
+        })
+        .catch((err)=>{
+            res.status(404).json({message: 'Error finding user log'})
+        })
+})
 
 //get user information 
 
 router.get('/userLogs', authorize, (req, res)=>{
-    const user_id = req.decoded.user_id
+    const user_id = req.decoded.user_id;
+    console.log('tries to get user')
 
     knex('user_logs')
         .where({user_id: user_id})
         .then((data)=>{
-            console.log(data);
+            console.log('got userlog')
             return res.status(200).json(data);
         })
         .catch((err)=>{
+            console.log('error gretting user')
             return res.status(403).json({message: 'Unable to retrieve data, user may not exists'});
         })
 
