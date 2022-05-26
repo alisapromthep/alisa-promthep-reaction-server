@@ -31,6 +31,7 @@ router.post('/register', (req, res)=>{
 function authorize (req, res, next) {
 
     const token = req.headers.authorization.split(' ')[1]
+
     jwt.verify(token, SECRET_KEY, (err, decoded)=>{
         if (err){
             return res.status(403).json({success: false, message: "No Token."});
@@ -72,8 +73,6 @@ router.post('/login', (req, res)=>{
 //user new entry 
 router.post('/entry', authorize, (req, res)=>{
     const inputEntry = req.body;
-    console.log(req.decoded)
-    
 
     knex('users')
         .where({username: req.decoded.username})
@@ -106,8 +105,7 @@ router.post('/entry', authorize, (req, res)=>{
 router.delete('/delete/:logId', authorize, (req, res)=>{
     const user_id = req.decoded.user_id;
     const log_id = req.params.logId
-    console.log(log_id)
-    console.log(user_id)
+
 
     knex('user_logs')
         .where({user_id: user_id, id: log_id})
@@ -120,20 +118,17 @@ router.delete('/delete/:logId', authorize, (req, res)=>{
         })
 })
 
-//get user information 
+//get all user logs information 
 
 router.get('/userLogs', authorize, (req, res)=>{
     const user_id = req.decoded.user_id;
-    console.log('tries to get user')
 
     knex('user_logs')
         .where({user_id: user_id})
         .then((data)=>{
-            console.log('got userlog')
             return res.status(200).json(data);
         })
         .catch((err)=>{
-            console.log('error gretting user')
             return res.status(403).json({message: 'Unable to retrieve data, user may not exists'});
         })
 

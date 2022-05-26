@@ -3,8 +3,6 @@ const cors = require('cors');
 const userRouter = require('./routes/userRoute');
 const publicRouter = require('./routes/publicRoute');
 
-
-
 require('dotenv').config();
 
 const app = express();
