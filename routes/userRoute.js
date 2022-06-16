@@ -18,7 +18,11 @@ router.post('/register', (req, res)=>{
         .insert(newRegister)
         .then(()=>{
             console.log(newRegister)
-            res.status(200).json(newRegister)
+            const token = jwt.sign({
+            user_id: user_id, 
+            username: username},
+            SECRET_KEY, {expiresIn: '24h'})
+            return res.status(200).json({token: token, username:username})
         })
         .catch((err)=>{
             res.status(400).json({
@@ -74,6 +78,10 @@ router.post('/login', (req, res)=>{
 router.post('/entry', authorize, (req, res)=>{
     const inputEntry = req.body;
 
+    //validation, no empty field except for notes section which is optional
+    
+
+
     knex('users')
         .where({username: req.decoded.username})
         .then((data)=>{
@@ -87,7 +95,6 @@ router.post('/entry', authorize, (req, res)=>{
                 "symptom": inputEntry.symptom,
                 "notes": inputEntry.notes
                 }
-
                 return knex('user_logs')
                             .insert(newEntry)
                 })
