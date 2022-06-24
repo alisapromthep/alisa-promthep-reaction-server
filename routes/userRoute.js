@@ -19,12 +19,13 @@ router.post('/register', (req, res)=>{
         .then(()=>{
             console.log(newRegister)
             const token = jwt.sign({
-            user_id: user_id, 
-            username: username},
+            user_id: newRegister.user_id, 
+            username: newRegister.username},
             SECRET_KEY, {expiresIn: '24h'})
-            return res.status(200).json({token: token, username:username})
+            return res.status(200).json({token: token, username:newRegister.username})
         })
         .catch((err)=>{
+            console.log(err)
             res.status(400).json({
                 message: `Error creating user ${newRegister.username}`
             })
