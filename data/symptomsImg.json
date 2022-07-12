@@ -1,0 +1,12 @@
+[{"difficulty-breathing": "http://localhost:8080/icons/symptoms/difficulty-breathing.png"}, 
+{"dizzy": "http://localhost:8080/icons/symptoms/dizzy.png"},
+{"cough": "http://localhost:8080/icons/symptoms/cough.png"},
+{"swollen-eye": "http://localhost:8080/icons/symptoms/swollen-eye.png"},
+{"itchy": "http://localhost:8080/icons/symptoms/itchy.png"},
+{"swollen-mouth":" http://localhost:8080/icons/symptoms/swollen-mouth.png"},
+{"nausea": "http://localhost:8080/icons/symptoms/nausea.png"},
+{"hay-fever": "http://localhost:8080/icons/symptoms/hay-fever.png"},
+{"vomit": "http://localhost:8080/icons/symptoms/vomit.png"},
+{"rash": "http://localhost:8080/icons/symptoms/rash.png"},
+{"diarrhea": "http://localhost:8080/icons/symptoms/diarrhea.png"},
+{"stomach-cramp": "http://localhost:8080/icons/symptoms/stomach-cramp.png"}]
