@@ -1,19 +1,59 @@
-[{"apple":"http://localhost:8080/icons/food/apple.png"}, 
-{"berries": "http://localhost:8080/icons/food/berries.png"},
-{"boiled-egg": "http://localhost:8080/icons/food/boiled-egg.png"},
-{"crab":"http://localhost:8080/icons/food/crab.png"},
-{"fish": "http://localhost:8080/icons/food/fish.png"},
-{"kiwi": "http://localhost:8080/icons/food/kiwi.png"},
-{"lobster":" http://localhost:8080/icons/food/lobster.png"},
-{"milk":"http://localhost:8080/icons/food/milk.png"},
-{"mustard": "http://localhost:8080/icons/food/mustard.png"},
-{"nuts": "http://localhost:8080/icons/food/nuts.png"},
-{"orange": "http://localhost:8080/icons/food/orange.png"}, 
-{"peach": "http://localhost:8080/icons/food/peach.png"},
-{"peanut":"http://localhost:8080/icons/food/peanut.png"},
-{"sesame":"http://localhost:8080/icons/food/sesame.png"},
-{"shrimp":"http://localhost:8080/icons/food/shrimp.png"},
-{"soybean": "http://localhost:8080/icons/food/soybean.png"},
-{"spice":" http://localhost:8080/icons/food/spice.png"},
-{"wheat": "http://localhost:8080/icons/food/wheat.png"},
-{"gluten": "http://localhost:8080/icons/food/gluten.png"}]
+[
+    {  
+        "name":"apple",
+        "img_file":"http://localhost:8080/icons/food/apple.png"}, 
+    {   
+        "name": "berries",
+        "img_file": "http://localhost:8080/icons/food/berries.png"},
+    {   
+        "name":"boiled-egg",
+        "img_file": "http://localhost:8080/icons/food/boiled-egg.png"},
+    {   
+        "name":"crab",
+        "img_file":"http://localhost:8080/icons/food/crab.png"},
+    {   
+        "name":"fish",
+        "img_file": "http://localhost:8080/icons/food/fish.png"},
+    {   
+        "name":"kiwi",
+        "img_file": "http://localhost:8080/icons/food/kiwi.png"},
+    {   
+        "name":"lobster",
+        "img_file":" http://localhost:8080/icons/food/lobster.png"},
+    {   
+        "name":"milk",
+        "img_file":"http://localhost:8080/icons/food/milk.png"},
+    {   
+        "name":"mustard",
+        "img_file": "http://localhost:8080/icons/food/mustard.png"},
+    {   
+        "name":"nuts",
+        "img_file": "http://localhost:8080/icons/food/nuts.png"},
+    {   
+        "name":"orange",
+        "img_file": "http://localhost:8080/icons/food/orange.png"}, 
+    {   
+        "name":"peach",
+        "img_file": "http://localhost:8080/icons/food/peach.png"},
+    {   
+        "name":"peanut",
+        "img_file":"http://localhost:8080/icons/food/peanut.png"},
+    {   
+        "name":"sesame",
+        "img_file":"http://localhost:8080/icons/food/sesame.png"},
+    {   
+        "name":"shrimp",
+        "img_file":"http://localhost:8080/icons/food/shrimp.png"},
+    {   
+        "name":"soybean",
+        "img_file": "http://localhost:8080/icons/food/soybean.png"},
+    {   
+        "name":"spice",
+        "img_file":" http://localhost:8080/icons/food/spice.png"},
+    {   
+        "name":"wheat",
+        "img_file": "http://localhost:8080/icons/food/wheat.png"},
+    {   
+        "name":"gluten",
+        "img_file": "http://localhost:8080/icons/food/gluten.png"}
+]

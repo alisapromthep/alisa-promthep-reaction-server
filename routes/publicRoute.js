@@ -11,8 +11,8 @@ router.get("/food", (_req,res)=>{
 
 //get all the symptoms icons for the form 
 router.get("/symptoms", (_req,res)=>{
-    const foodIconFile = readFile('./data/symptomsImg.json');
-    res.status(200).json(foodIconFile);
+    const symptomIconFile = readFile('./data/symptomsImg.json');
+    res.status(200).json(symptomIconFile);
 })
 
 
