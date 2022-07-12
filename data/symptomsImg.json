@@ -1,38 +1,50 @@
 [
     {
-        "name":"difficulty-breathing",
-        "img-file": "http://localhost:8080/icons/symptoms/difficulty-breathing.png"}, 
+    "name": "difficulty-breathing",
+    "img_file": "http://localhost:8080/icons/symptoms/difficulty-breathing.png"
+    },
     {
-        "name":"dizzy",
-        "img-file": "http://localhost:8080/icons/symptoms/dizzy.png"},
+    "name": "dizzy",
+    "img_file": "http://localhost:8080/icons/symptoms/dizzy.png"
+    },
     {
-        "name":"cough",
-        "img-file": "http://localhost:8080/icons/symptoms/cough.png"},
+    "name": "cough",
+    "img_file": "http://localhost:8080/icons/symptoms/cough.png"
+    },
     {
-        "name":"swollen-eye",
-        "img-file": "http://localhost:8080/icons/symptoms/swollen-eye.png"},
+    "name": "swollen-eye",
+    "img_file": "http://localhost:8080/icons/symptoms/swollen-eye.png"
+    },
     {
-        "name":"itchy",
-        "img-file": "http://localhost:8080/icons/symptoms/itchy.png"},
+    "name": "itchy",
+    "img_file": "http://localhost:8080/icons/symptoms/itchy.png"
+    },
     {
-        "name":"swollen-mouth",
-        "img-file":" http://localhost:8080/icons/symptoms/swollen-mouth.png"},
+    "name": "swollen-mouth",
+    "img_file": " http://localhost:8080/icons/symptoms/swollen-mouth.png"
+    },
     {
-        "name":"nausea",
-        "img-file": "http://localhost:8080/icons/symptoms/nausea.png"},
+    "name": "nausea",
+    "img_file": "http://localhost:8080/icons/symptoms/nausea.png"
+  },
+  {
+    "name": "hay-fever",
+    "img_file": "http://localhost:8080/icons/symptoms/hay-fever.png"
+    },
     {
-        "name":"hay-fever",
-        "img-file": "http://localhost:8080/icons/symptoms/hay-fever.png"},
+        "name": "vomit",
+        "img_file": "http://localhost:8080/icons/symptoms/vomit.png"
+    },
     {
-        "name":"vomit",
-        "img-file": "http://localhost:8080/icons/symptoms/vomit.png"},
+        "name": "rash",
+        "img_file": "http://localhost:8080/icons/symptoms/rash.png"
+    },
     {
-        "name":"rash",
-        "img-file": "http://localhost:8080/icons/symptoms/rash.png"},
+        "name": "diarrhea",
+        "img_file": "http://localhost:8080/icons/symptoms/diarrhea.png"
+    },
     {
-        "name":"diarrhea",
-        "img-file": "http://localhost:8080/icons/symptoms/diarrhea.png"},
-    {
-        "name":"stomach-cramp",
-        "img-file": "http://localhost:8080/icons/symptoms/stomach-cramp.png"}
+        "name": "stomach-cramp",
+        "img_file": "http://localhost:8080/icons/symptoms/stomach-cramp.png"
+    }
 ]
