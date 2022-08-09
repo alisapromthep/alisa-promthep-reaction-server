@@ -3,24 +3,41 @@ const router = express.Router();
 const { v4: uuid } = require('uuid');
 const knexfile = require('../knexfile').development;
 const knex = require('knex')(knexfile);
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const SECRET_KEY = process.env.SERCRET_KEY;
 
 //creating a new user 
 router.post('/register', (req, res)=>{
-    const newRegister = req.body;
-    //add unique user_id 
-    newRegister.user_id = uuid();
+    const {name, username, password, phone, email } = req.body;
+
+    
+    //encrypted password 
+    const hashedPassword = bcrypt.hashSync(password, 12);
+    //add unique user_id with uuid 
+    const newRegister = {
+        name: name,
+        username: username,
+        password: hashedPassword,
+        phone: phone,
+        email: email,
+        user_id: uuid()
+    };
 
     // Store new User in the Users table
     knex("users")
         .insert(newRegister)
         .then(()=>{
             console.log(newRegister)
-            res.status(200).json(newRegister)
+            const token = jwt.sign({
+            user_id: newRegister.user_id, 
+            username: newRegister.username},
+            SECRET_KEY, {expiresIn: '24h'})
+            return res.status(200).json({token: token, username:newRegister.username})
         })
         .catch((err)=>{
+            console.log(err)
             res.status(400).json({
                 message: `Error creating user ${newRegister.username}`
             })
@@ -53,19 +70,23 @@ router.post('/login', (req, res)=>{
             if(data.length < 1) {
                 res.status(403).json({error: "user doesn't exists"})
             } else {
-                const {username, password, user_id} = userLogin
-                if (password === inputPassword) {
-                    console.log('found user', username, user_id)
-                    const token = jwt.sign({
-                        user_id: user_id, 
-                        username: username},
-                        SECRET_KEY, {expiresIn: '24h'})
-                        return res.status(200).json({token: token, username:username})
-                } else {
-                    return res.status(403).json({
-                        error: "Password do not match record"
-                    })
-                }
+                const {username, password, user_id} = userLogin;
+                //compare entered password to stored password 
+                bcrypt.compare(inputPassword, password,function(err,passwordIsMatch){
+                    if (passwordIsMatch) {
+                        console.log('found user', username, user_id)
+                        const token = jwt.sign({
+                            user_id: user_id, 
+                            username: username},
+                            SECRET_KEY, {expiresIn: '24h'})
+                            return res.status(200).json({token: token, username:username})
+                    } else {
+                        return res.status(403).json({
+                            error: "Password do not match record"
+                        })
+                    }
+                });
+
             }
         })
 })
@@ -73,6 +94,10 @@ router.post('/login', (req, res)=>{
 //user new entry 
 router.post('/entry', authorize, (req, res)=>{
     const inputEntry = req.body;
+
+    //validation, no empty field except for notes section which is optional
+    
+
 
     knex('users')
         .where({username: req.decoded.username})
@@ -87,7 +112,6 @@ router.post('/entry', authorize, (req, res)=>{
                 "symptom": inputEntry.symptom,
                 "notes": inputEntry.notes
                 }
-
                 return knex('user_logs')
                             .insert(newEntry)
                 })
