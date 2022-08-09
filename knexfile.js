@@ -4,7 +4,8 @@ require('dotenv').config();
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
  */
-module.exports = {
+
+const connections = {
 
   development: {
     client: 'mysql',
@@ -15,5 +16,13 @@ module.exports = {
       database: 'reaction',
       charset: 'utf8'
     }
+  },
+  production: {
+    client: 'mysql',
+    connection: process.env.JAWSDB_URL,
   }
-};
+}
+
+module.exports = process.env.NODE_ENV === 'production' 
+  ? connections.production
+  : connections.development;
