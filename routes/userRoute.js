@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 const { v4: uuid } = require('uuid');
 const knexfile = require('../knexfile').development;
-const knex= require('knex')(process.env.JAWSDB_URL);
-// const knex = require('knex')(knexfile);
+// const knex= require('knex')(process.env.JAWSDB_URL);
+const knex = require('knex')(knexfile);
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
@@ -15,12 +15,12 @@ router.post('/register', (req, res)=>{
 
     
     //encrypted password 
-    const hashedPassword = bcrypt.hashSync(password, 12);
+    // const hashedPassword = bcrypt.hashSync(password, 12);
     //add unique user_id with uuid 
     const newRegister = {
         name: name,
         username: username,
-        password: hashedPassword,
+        password: password,
         phone: phone,
         email: email,
         user_id: uuid()
