@@ -34,7 +34,7 @@ router.post('/register', (req, res)=>{
             const token = jwt.sign({
             user_id: newRegister.user_id, 
             username: newRegister.username},
-            SECRET_KEY, {expiresIn: '24h'})
+            process.env.SECRET_KEY, {expiresIn: '24h'})
             return res.status(200).json({token: token, username:newRegister.username})
         })
         .catch((err)=>{
