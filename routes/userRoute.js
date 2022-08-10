@@ -20,7 +20,7 @@ router.post('/register', (req, res)=>{
     const newRegister = {
         name: name,
         username: username,
-        password: password,
+        password: hashedPassword,
         phone: phone,
         email: email,
         user_id: uuid()
