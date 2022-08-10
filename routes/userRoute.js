@@ -7,7 +7,7 @@ const knex= require('knex')(process.env.JAWSDB_URL);
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
-const SECRET_KEY = process.env.SERCRET_KEY;
+const SECRET_KEY = process.env.SECRET_KEY;
 
 //creating a new user 
 router.post('/register', (req, res)=>{
@@ -31,10 +31,11 @@ router.post('/register', (req, res)=>{
         .insert(newRegister)
         .then(()=>{
             console.log(newRegister)
+            console.log(SECRET_KEY)
             const token = jwt.sign({
             user_id: newRegister.user_id, 
             username: newRegister.username},
-            process.env.SECRET_KEY, {expiresIn: '24h'})
+            SECRET_KEY, {expiresIn: '24h'})
             return res.status(200).json({token: token, username:newRegister.username})
         })
         .catch((err)=>{
