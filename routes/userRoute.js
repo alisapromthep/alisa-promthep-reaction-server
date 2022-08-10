@@ -15,7 +15,7 @@ router.post('/register', (req, res)=>{
 
     
     //encrypted password 
-    // const hashedPassword = bcrypt.hashSync(password, 12);
+    const hashedPassword = bcrypt.hashSync(password, 12);
     //add unique user_id with uuid 
     const newRegister = {
         name: name,
