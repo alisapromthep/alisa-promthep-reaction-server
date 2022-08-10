@@ -30,8 +30,6 @@ router.post('/register', (req, res)=>{
     knex("users")
         .insert(newRegister)
         .then(()=>{
-            console.log(newRegister)
-            console.log(SECRET_KEY)
             const token = jwt.sign({
             user_id: newRegister.user_id, 
             username: newRegister.username},
@@ -98,8 +96,6 @@ router.post('/entry', authorize, (req, res)=>{
     const inputEntry = req.body;
 
     //validation, no empty field except for notes section which is optional
-    
-
 
     knex('users')
         .where({username: req.decoded.username})
