@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { v4: uuid } = require('uuid');
-const knexfile = require('../knexfile').development;
+// const knexfile = require('../knexfile').development;
 const knex= require('knex')(process.env.JAWSDB_URL);
 // const knex = require('knex')(knexfile);
 const bcrypt = require('bcryptjs');
