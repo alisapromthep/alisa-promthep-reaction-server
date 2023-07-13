@@ -1,9 +1,19 @@
 const express = require('express');
 const router = express.Router();
 const { v4: uuid } = require('uuid');
-// const knexfile = require('../knexfile').development;
-const knex= require('knex')(process.env.JAWSDB_URL);
-// const knex = require('knex')(knexfile);
+const knexfile = require('../knexfile').development;
+//const knex = require('knex')(process.env.MYSQL_URL);
+const knex = require('knex')({
+    client: 'mysql',
+    connection: {
+        host: '127.0.0.1',
+        user: process.env.DATABASE_USERNAME,
+        password: process.env.DATABASE_PASSWORD,
+        database: 'reaction',
+        charset: 'utf8',
+    },
+    useNullAsDefault: true
+});
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
@@ -117,6 +127,7 @@ router.post('/entry', authorize, (req, res)=>{
             return res.status(201).json({message: 'added new entry'});
         })
         .catch((err)=>{
+            console.log(err)
             return res.status(400).json({message: 'cannot add new entry'});
         })
 })
